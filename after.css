@@ -45,11 +45,11 @@ footer {
 }
 
 p {
-  margin-bottom: 15px; /* Adding some spacing between paragraphs */
-  margin-left: 10px;
+  margin-bottom: 15px;
+  margin-left: 10px; /* Add left margin */
   margin-right: 10px;
+  text-indent: 20px; /* Set the desired indent */
 }
-
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
   header {
