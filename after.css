@@ -46,10 +46,11 @@ footer {
 
 p {
   margin-bottom: 15px;
-  margin-left: 10px; /* Add left margin */
+  margin-left: 10px; /* Desktop indentation */
   margin-right: 10px;
-  text-indent: 20px; /* Set the desired indent */
+  
 }
+
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
   header {
@@ -67,7 +68,7 @@ p {
   }
 
   p {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 30px; /* Mobile indentation */
+    text-indent: 40px; /* Mobile indentation */
   }
 }
