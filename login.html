@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Connect to Wi-Fi</title>
+    <link rel="stylesheet" href="LoginCss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!--Title-->
+        <div class="title-text">
+            <div class="title login">
+                CLARK CONNECT
+            </div>
+        </div>
+
+
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <label for="login" class="slide login">Press to Generate Token</label>
+                <div class="slider-tab"></div>
+            </div>
+
+            <!-- Generate Code Button-->
+            <button id="generateButton" class="generate-code">Generate Token</button> 
+
+            <div class="container"></div>
+
+            <div class="form-inner">
+                <form action="connected.html" class="login" id="login-form">
+                    <div class="field">
+                        <!--Generated code will be pasted here-->
+                        <input type="text" id="token" placeholder="Token" required disabled>
+                    </div>
+                    
+                    <!--Terms and Conditions-->
+                    <div class="tacbox">
+                        <input id="checkbox" type="checkbox" />
+                        <label for="checkbox"> I accept <a href="TnC.html">Terms and Conditions</a>.</label>
+                    </div>
+
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="CONNECT">
+                    </div>
+
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const loginText = document.querySelector(".title-text .login");
+        const loginForm = document.querySelector("form.login");
+        const loginBtn = document.querySelector("label.login");
+        const termsCheckbox = document.getElementById("checkbox");
+    
+        const GENERATE_CODE_TIMEOUT = 5000; // 20 seconds in milliseconds
+    
+        // Check if there's a code in local storage and if the timeout has elapsed
+        let storedCode = localStorage.getItem("generatedCode");
+        let storedTimestamp = localStorage.getItem("codeTimestamp");
+    
+        if (storedCode && storedTimestamp) {
+            const elapsedTime = Date.now() - parseInt(storedTimestamp);
+            if (elapsedTime < GENERATE_CODE_TIMEOUT) {
+                // If the timeout hasn't elapsed, disable the generate button
+                disableGenerateButton(GENERATE_CODE_TIMEOUT - elapsedTime);
+                // Disable the token input field
+                disableTokenInput();
+            } else {
+                // Clear stored token and timestamp if timeout has elapsed
+                localStorage.removeItem("generatedCode");
+                localStorage.removeItem("codeTimestamp");
+                storedCode = null;
+                storedTimestamp = null;
+            }
+        }
+    
+        function disableGenerateButton(timeout) {
+            document.getElementById('generateButton').disabled = true;
+            setTimeout(() => {
+                document.getElementById('generateButton').disabled = false;
+            }, timeout);
+        }
+    
+        function disableTokenInput() {
+            document.getElementById('token').disabled = true;
+        }
+    
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+    
+            // Get the token entered by the user
+            const token = document.getElementById("token").value;
+            const termsAccepted = termsCheckbox.checked;
+    
+            // Check if the token is at least 8 characters long and terms are accepted
+            if (/^[A-Za-z0-9]{8}$/.test(token) && termsAccepted) {
+                // Redirect to the "after.html" page
+                window.location.href = "after.html";
+            } else {
+                if (token.length < 8) {
+                    alert("Token should be at least 8 characters long.");
+                } else if (!termsAccepted) {
+                    alert("Please accept the Terms and Conditions.");
+                } else {
+                    alert("Token should be exactly 8 characters long.");
+                }
+            }
+        });
+    
+        loginBtn.onclick = (() => {
+            loginForm.style.marginLeft = "0%";
+            loginText.style.marginLeft = "0%";
+        });
+    
+        function generateAlphaNumericCode(length) {
+            const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            return result;
+        }
+    
+        document.getElementById('generateButton').addEventListener('click', function() {
+            // Generate code
+            const code = generateAlphaNumericCode(8);
+    
+            // Store code and timestamp in local storage
+            localStorage.setItem('generatedCode', code);
+            localStorage.setItem('codeTimestamp', Date.now());
+    
+            // Disable the generate button for 20 seconds
+            disableGenerateButton(GENERATE_CODE_TIMEOUT);
+    
+            // Disable the token input field
+            disableTokenInput();
+    
+            // Update the token input field with the generated code
+            document.getElementById('token').value = code;
+            document.getElementById('token').select();
+            document.execCommand('copy');
+            alert('Code copied to clipboard: ' + code);
+        });
+    
+        // Load stored token when the page is revisited
+        window.addEventListener("load", function() {
+            if (storedCode && storedTimestamp) {
+                document.getElementById('token').value = storedCode;
+            }
+        });
+
+        
+    </script>
+</body>
+
+</html>
