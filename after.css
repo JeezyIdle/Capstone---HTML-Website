@@ -37,11 +37,11 @@ footer {
   color: #fff;
   text-align: center;
   padding: 10px 0;
-  position: fixed;
+  position: fixed; /* Keep the footer fixed at the bottom */
   bottom: 0;
   width: 100%;
   font-family: 'Times New Roman', Times, serif;
-  font-size: 25px;
+  font-size: 18px; /* Decrease the font size */
 }
 
 p {
