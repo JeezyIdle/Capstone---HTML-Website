@@ -22,12 +22,12 @@
         <div class="form-container">
             <div class="slide-controls">
                 <input type="radio" name="slide" id="login" checked>
-                <label for="login" class="slide login">Press to Generate Token</label>
+                <label for="login" class="slide login">Press Button Below</label>
                 <div class="slider-tab"></div>
             </div>
 
             <!-- Generate Code Button-->
-            <button id="generateButton" class="generate-code">Generate Token</button> 
+            <button id="generateButton" class="generate-code">Generate Token Here</button> 
 
             <div class="container"></div>
 
@@ -61,7 +61,7 @@
         const loginBtn = document.querySelector("label.login");
         const termsCheckbox = document.getElementById("checkbox");
     
-        const GENERATE_CODE_TIMEOUT = 5000; // 20 seconds in milliseconds
+        const GENERATE_CODE_TIMEOUT = 15000; // 5 seconds in milliseconds
     
         // Check if there's a code in local storage and if the timeout has elapsed
         let storedCode = localStorage.getItem("generatedCode");
@@ -74,6 +74,12 @@
                 disableGenerateButton(GENERATE_CODE_TIMEOUT - elapsedTime);
                 // Disable the token input field
                 disableTokenInput();
+    
+                // Show the stored token for the same duration as the generate code timeout
+                document.getElementById('token').value = storedCode;
+                setTimeout(() => {
+                    document.getElementById('token').value = '';
+                }, GENERATE_CODE_TIMEOUT - elapsedTime);
             } else {
                 // Clear stored token and timestamp if timeout has elapsed
                 localStorage.removeItem("generatedCode");
@@ -138,7 +144,7 @@
             localStorage.setItem('generatedCode', code);
             localStorage.setItem('codeTimestamp', Date.now());
     
-            // Disable the generate button for 20 seconds
+            // Disable the generate button for 5 seconds
             disableGenerateButton(GENERATE_CODE_TIMEOUT);
     
             // Disable the token input field
@@ -149,6 +155,11 @@
             document.getElementById('token').select();
             document.execCommand('copy');
             alert('Code copied to clipboard: ' + code);
+    
+            // Clear the token after 5 seconds
+            setTimeout(() => {
+                document.getElementById('token').value = '';
+            }, GENERATE_CODE_TIMEOUT);
         });
     
         // Load stored token when the page is revisited
@@ -157,8 +168,6 @@
                 document.getElementById('token').value = storedCode;
             }
         });
-
-        
     </script>
 </body>
 
