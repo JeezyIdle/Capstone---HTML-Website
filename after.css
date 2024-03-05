@@ -76,7 +76,11 @@ p {
   }
 
   p {
-    margin-left: 20px; /* Mobile indentation */
+    margin-left: 10px; /* Mobile indentation */
     text-indent: 40px; /* Mobile indentation */
+  }
+
+  footer {
+    margin-top:auto;  /* Mobile indentation */
   }
 }
