@@ -4,7 +4,7 @@ body {
   font-family: Arial, Arial;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #ff9100, rgb(221, 147, 37)); /* Updated gradient colors */
+  background: rgb(255, 255, 255);
   font-size: 20px;
 }
 
@@ -15,7 +15,7 @@ html{
 }
 
 header {
-  background-color: rgb(21, 73, 151);
+  background-color: rgba(16, 69, 150, 0.712);
   padding: 20px;
   color: #ffffff;
   display: flex; /* Add flex display */
@@ -27,7 +27,7 @@ header img {
   margin-right: 10px;
 }
 
-header h1 {
+header h1 { 
   font-size: 24px;
   margin: 0;
    text-align: center;
@@ -35,7 +35,7 @@ header h1 {
 
 main {
   padding: 20px;
-  color: #fff; /* Setting text color to white */
+  color: #000000; /* Setting text color to white */
   text-align: justify;
 }
 
@@ -45,7 +45,7 @@ footer {
   color: #ffffff;
   text-align: center;
   padding: 20px 0;
-  position: fixed;
+  position: bottom;
   bottom: 0;
   width: 100%;
   font-size: 14px;
