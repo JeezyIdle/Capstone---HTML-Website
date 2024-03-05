@@ -76,7 +76,7 @@ p {
   }
 
   p {
-    margin-left: 10px; /* Mobile indentation */
+    margin-left: 0px; /* Mobile indentation */
     text-indent: 40px; /* Mobile indentation */
   }
 
