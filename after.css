@@ -37,19 +37,20 @@ main {
   padding: 20px;
   color: #000000; /* Setting text color to white */
   text-align: justify;
+  
 }
 
 footer {
-  margin-top: auto;
+  /*margin-top: auto;*/
   background-color: #273037;
   color: #ffffff;
   text-align: center;
   padding: 20px 0;
-  position: bottom; /* Position of the footer is in the bottom*/
-  bottom: 0;
+  position:fixed; /* Position of the footer is in the bottom*/
   width: 100%;
   font-size: 14px;
   margin-top: auto;
+  bottom: 0; /*Align it at the bottom*/
 }
 
 p {
@@ -76,11 +77,12 @@ p {
   }
 
   p {
-    margin-left: 0px; /* Mobile indentation */
+    margin-left: 10px; /* Mobile indentation */
     text-indent: 40px; /* Mobile indentation */
   }
 
   footer {
     margin-top:auto;  /* Mobile indentation */
+    text-align: center;
   }
 }
